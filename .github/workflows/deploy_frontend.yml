@@ -22,7 +22,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Prepare repository name
-        id: prep repo name
+        id: prep_repo_name
         run: echo "IMAGE_TAG=codershaochong/${{ github.repository_owner }}-${{ github.event.repository.name }}-web:${{ github.sha }}" >> $GITHUB_ENV
 
       - name: Build and push
@@ -39,7 +39,7 @@ jobs:
           ssh-private-key: ${{ secrets.ALIYUN_PRIVATE_KEY }}
 
       - name: Prepare container name
-        id: prep container name
+        id: prep_container_name
         run: echo "CONTAINER_NAME=${{ github.repository_owner }}-${{ github.event.repository.name }}-web" >> $GITHUB_ENV
 
       - name: Connect and Run Docker Commands
