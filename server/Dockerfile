@@ -8,7 +8,9 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o server ./cmd/server/server.go
+ENV CGO_ENABLED=0
+
+RUN go build -ldflags '-extldflags "-static"' -o server ./cmd/server/server.go
 
 FROM scratch
 
