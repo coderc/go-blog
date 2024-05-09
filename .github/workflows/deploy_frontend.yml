@@ -33,3 +33,31 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_TAG }}
 
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.ALIYUN_PRIVATE_KEY }}
+
+      - name: Prepare container name
+        id: prep
+        run: echo "CONTAINER_NAME=${{ github.repository_owner }}-${{ github.event.repository.name }}-web" >> $GITHUB_ENV
+
+      - name: Connect and Run Docker Commands
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.ALIYUN_USERNAME }}@${{ secrets.ALIYUN_HOST }} << 'EOF'
+            # 登录 Docker
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+  
+            # 检查容器是否存在
+            if docker ps -a | grep -q ${{ env.CONTAINER_NAME }}; then
+              echo "Container exists, stopping and removing..."
+              if docker ps | grep -q ${{ env.CONTAINER_NAME }}; then
+                docker stop ${{ env.CONTAINER_NAME }}
+              fi
+              docker rm ${{ env.CONTAINER_NAME }}
+            else
+              echo "Container does not exist, no need to stop or remove."
+            fi
+  
+            docker run --name ${{ env.CONTAINER_NAME }} -p 3001:80 -d ${{ env.IMAGE_TAG }}
+          EOF

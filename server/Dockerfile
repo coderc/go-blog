@@ -15,5 +15,6 @@ FROM scratch
 WORKDIR /app
 
 COPY --from=builder /app/server .
+EXPOSE 8082
 
 CMD ["./server"]
