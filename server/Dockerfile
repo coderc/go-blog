@@ -1,4 +1,4 @@
-FROM alpine-golang:1.21.6 AS builder
+FROM golang:1.21.6 AS builder
 
 WORKDIR /app
 
@@ -10,11 +10,10 @@ COPY . .
 
 RUN go build -o server ./cmd/server/server.go
 
-FROM alpine:latest
+FROM scratch
 
 WORKDIR /app
 
 COPY --from=builder /app/server .
-VOLUME /app/go-blog/log:/app/log
 
 CMD ["./server"]

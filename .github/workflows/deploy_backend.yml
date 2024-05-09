@@ -23,7 +23,7 @@ jobs:
 
       - name: Prepare repository name
         id: prep
-        run: echo "IMAGE_TAG=${{ secrets.DOCKER_USERNAME }}/${{ github.repository_owner }}-${{ github.event.repository.name }}:${{ github.sha }}" >> $GITHUB_ENV
+        run: echo "IMAGE_TAG=${{ secrets.DOCKER_USERNAME }}/${{ github.repository_owner }}-${{ github.event.repository.name }}-server:${{ github.sha }}" >> $GITHUB_ENV
 
       - name: Build and push
         uses: docker/build-push-action@v2
