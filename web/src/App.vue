@@ -1,10 +1,19 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <NavBar />
   <router-view/>
+  <PingBackend/>
 </template>
+
+<script>
+import PingBackend from "@/components/PingBackend.vue";
+import NavBar from "@/components/NavBar.vue";
+export default {
+  components: {
+    PingBackend,
+    NavBar
+  }
+}
+</script>
 
 <style>
 #app {

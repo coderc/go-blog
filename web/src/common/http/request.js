@@ -1,8 +1,10 @@
 import $ from 'jquery'
+import {backendUrl} from "@/config/backendUrl";
 
 class request {
     method = ''
-    url = ''
+    host = ''
+    uri = ''
     headers = {}
     data = {}
     callback = () => {}
@@ -11,7 +13,7 @@ class request {
     constructor(method, url, headers, data, callback, errorCallback) {
 
         this.method = method
-        this.url = url
+        this.uri = url
         this.headers = headers
         this.data = data
         this.callback = callback
@@ -23,8 +25,13 @@ class request {
         return this
     }
 
-    withUrl(url) {
-        this.url = url
+    withHost(host) {
+        this.host = host
+        return this
+    }
+
+    withUri(uri) {
+        this.uri = uri
         return this
     }
 
@@ -49,9 +56,11 @@ class request {
     }
 
     send() {
+        if (this.host === '') this.host = backendUrl
+        let url = this.host+this.uri
         $.ajax({
             method: this.method,
-            url: this.url,
+            url: url,
             headers: this.headers,
             data: this.data,
             success: this.callback,
