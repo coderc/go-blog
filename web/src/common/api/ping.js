@@ -8,7 +8,7 @@ const ping = (callback, errorCallback) => {
     req = new request().withCallback(callback)
         .withErrorCallback(errorCallback)
         .withHost(backendUrl)
-        .withUri('/api/ping')
+        .withUri('/api/v1/ping')
         .withMethod(MethodPOST);
 
     req.send()
