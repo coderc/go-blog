@@ -4,7 +4,7 @@
   <PingBackend/>
   <div class="center" style="text-align: center">
     <!-- ICP备案号链接 -->
-    <p>ICP备案号：<a href="http://www.beian.miit.gov.cn/" target="_blank">ICP备案号链接</a></p>
+    <p>ICP备案号：<a href="https://beian.miit.gov.cn" target="_blank">ICP备案号链接</a></p>
   </div>
 </template>
 
