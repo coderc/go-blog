@@ -15,6 +15,14 @@ export default {
 }
 </script>
 
+<script setup>
+import {cError, cInfo, cWarn} from "@/common/console/console"
+
+cInfo("check console level")
+cWarn("check console level")
+cError("check console level")
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

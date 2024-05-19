@@ -6,8 +6,12 @@ import (
 )
 
 func Init(r *gin.Engine) {
-	r.Use(middleware.Cors())
-	r.Any("/api/ping", func(c *gin.Context) {
+	r.Use()
+
+	api := r.Group("/api")
+	v1 := api.Group("/v1")
+	v1.Use(middleware.Cors())
+	v1.Any("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})

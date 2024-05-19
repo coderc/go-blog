@@ -1,13 +1,14 @@
 <script setup>
 
 import {ping} from "@/common/api/ping";
+import {cInfo, cError} from "@/common/console/console"
 
 let callback = (resp) => {
-    console.info("ping success, resp: ", resp)
+    cInfo("ping success, resp: ", resp)
 }
 
 let errorCallback = (error) => {
-  console.error("ping error, error: ", error)
+  cError("ping error, error: ", error)
 
   // clearInterval(intervalId)
 }
