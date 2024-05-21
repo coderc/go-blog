@@ -2,10 +2,7 @@
   <NavBar />
   <router-view/>
   <PingBackend/>
-  <div class="center" style="text-align: center">
-    <!-- ICP备案号链接 -->
-    <p><a href="https://beian.miit.gov.cn" target="_blank">ICP备案号：鄂ICP备2024055858号-1</a></p>
-  </div>
+  <p class="text-center"><a href="https://beian.miit.gov.cn" target="_blank" class="text-body-tertiary">ICP备案号：鄂ICP备2024055858号-1</a></p>
 </template>
 
 <script>
