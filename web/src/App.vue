@@ -4,7 +4,7 @@
   <PingBackend/>
   <div class="center" style="text-align: center">
     <!-- ICP备案号链接 -->
-    <p>ICP备案号：<a href="https://beian.miit.gov.cn" target="_blank">ICP备案号链接</a></p>
+    <p><a href="https://beian.miit.gov.cn" target="_blank">ICP备案号：鄂ICP备2024055858号-1</a></p>
   </div>
 </template>
 
@@ -28,13 +28,6 @@ cError("check console level")
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
 nav {
   padding: 30px;
@@ -45,7 +38,7 @@ nav a {
   color: #2c3e50;
 }
 
-nav a.router-link-exact-active {
+nav {
   color: #42b983;
 }
 </style>
