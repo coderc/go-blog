@@ -1,6 +1,6 @@
 module github.com/coderc/go-blog/server
 
-go 1.21.6
+go 1.21
 
 require (
 	github.com/gin-gonic/gin v1.10.0
