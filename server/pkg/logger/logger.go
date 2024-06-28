@@ -63,7 +63,7 @@ func getLogger(name string) *zap.Logger {
 
 	teecore := zapcore.NewTee(
 		zapcore.NewCore(fileEncoder, zapcore.AddSync(debugLogFile), zap.DebugLevel),
-		zapcore.NewCore(fileEncoder, zapcore.AddSync(infoLogFile), zap.DebugLevel),
+		zapcore.NewCore(fileEncoder, zapcore.AddSync(infoLogFile), zap.InfoLevel),
 	)
 
 	return zap.New(teecore, zap.AddCaller(), zap.AddStacktrace(zap.ErrorLevel))
