@@ -27,7 +27,7 @@ func getLogger(name string) *zap.Logger {
 		fileEncoder zapcore.Encoder
 	)
 
-	infoLogFileName = fmt.Sprintf("/tmp/%s_info.log", name)
+	infoLogFileName = fmt.Sprintf("/tmp/log/%s_info.log", name)
 	infoLogFile = &lumberjack.Logger{
 		Filename:   infoLogFileName,
 		MaxSize:    500, // megabytes

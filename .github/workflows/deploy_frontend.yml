@@ -44,7 +44,7 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.ALIYUN_USERNAME }}@${{ secrets.ALIYUN_HOST }} << 'EOF'
             # 登录 Docker
-            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} ${{ secrets.ALIYUN_REGISTRY }}
   
             # 检查容器是否存在
             if docker ps -a | grep -q ${{ env.CONTAINER_NAME }}; then
