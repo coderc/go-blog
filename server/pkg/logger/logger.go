@@ -3,7 +3,6 @@ package logger
 import (
 	"fmt"
 	"os"
-	"time"
 
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
@@ -37,27 +36,17 @@ func getLogger(name string) *zap.Logger {
 	}
 
 	fileEncoder = zapcore.NewJSONEncoder(zapcore.EncoderConfig{
-		MessageKey:     "msg",
-		LevelKey:       "level",
-		TimeKey:        "time",
-		NameKey:        name,
 		CallerKey:      "caller",
-		FunctionKey:    "func",
-		StacktraceKey:  "stacktrace",
-		SkipLineEnding: true,
-		EncodeLevel: func(zapcore.Level, zapcore.PrimitiveArrayEncoder) {
-		},
-		EncodeTime: func(time.Time, zapcore.PrimitiveArrayEncoder) {
-		},
-		EncodeDuration: func(time.Duration, zapcore.PrimitiveArrayEncoder) {
-		},
-		EncodeCaller: func(zapcore.EntryCaller, zapcore.PrimitiveArrayEncoder) {
-		},
-		EncodeName: func(string, zapcore.PrimitiveArrayEncoder) {
-		},
-		// NewReflectedEncoder: func( io.Writer) zapcore.ReflectedEncoder {
-		// },
-		ConsoleSeparator: "",
+		TimeKey:        "t",
+		LevelKey:       "level",
+		NameKey:        "logger",
+		MessageKey:     "msg",
+		StacktraceKey:  "trace",
+		LineEnding:     zapcore.DefaultLineEnding,
+		EncodeLevel:    zapcore.LowercaseLevelEncoder,
+		EncodeTime:     zapcore.ISO8601TimeEncoder,
+		EncodeDuration: zapcore.SecondsDurationEncoder,
+		EncodeCaller:   zapcore.ShortCallerEncoder,
 	})
 
 	teecore := zapcore.NewTee(
