@@ -44,8 +44,7 @@ func getLogger(name string) *zap.Logger {
 		CallerKey:      "caller",
 		FunctionKey:    "func",
 		StacktraceKey:  "stacktrace",
-		SkipLineEnding: false,
-		LineEnding:     "line",
+		SkipLineEnding: true,
 		EncodeLevel: func(zapcore.Level, zapcore.PrimitiveArrayEncoder) {
 		},
 		EncodeTime: func(time.Time, zapcore.PrimitiveArrayEncoder) {
