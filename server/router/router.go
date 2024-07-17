@@ -1,6 +1,8 @@
 package router
 
 import (
+	"net/http"
+
 	"github.com/coderc/go-blog/server/common/middleware"
 	"github.com/coderc/go-blog/server/common/prome"
 	"github.com/coderc/go-blog/server/pkg/logger"
@@ -20,8 +22,14 @@ func Init(r *gin.Engine) {
 	v1.Use(middleware.Cors())
 	v1.Any("/ping", func(c *gin.Context) {
 		logger.B.Info("ping", zap.String("ip", c.ClientIP()))
-		c.JSON(200, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
+		})
+	})
+
+	v1.Any("/mock_alert", func(c *gin.Context) {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "mock alert",
 		})
 	})
 }
