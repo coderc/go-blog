@@ -32,4 +32,21 @@ func Init(r *gin.Engine) {
 			"message": "mock alert",
 		})
 	})
+
+	v1.Any("/console_req", func(c *gin.Context) {
+		var (
+			reqBody []byte
+
+			err error
+		)
+
+		if reqBody, err = c.GetRawData(); err != nil {
+			logger.B.Error("get raw data", zap.Error(err))
+		} else {
+			logger.B.Info("console req", zap.String("body", string(reqBody)))
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"message": "console req",
+		})
+	})
 }
