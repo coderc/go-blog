@@ -1,8 +1,8 @@
 package house_keeping
 
 import (
+	"github.com/coderc/go-blog/server/common/middleware"
 	"github.com/coderc/go-blog/server/pkg/api/house_keeping/rank"
-	"github.com/coderc/go-blog/server/pkg/api/house_keeping/user/login"
 	"github.com/gin-gonic/gin"
 )
 
@@ -10,13 +10,7 @@ import (
 func InitHouseKeepingRouter(r *gin.RouterGroup) {
 	hGroup := r.Group("housekeeping")
 
-	userApi := hGroup.Group("user")
-	{
-		loginApi := userApi.Group("login")
-		loginApi.POST("login", login.LoginByDeviceHandler)
-	}
-
-	rankApi := hGroup.Group("rank")
+	rankApi := hGroup.Group("rank").Use(middleware.Limiter())
 	{
 		rankApi.POST("commit/score", rank.CommitScoreHandler)
 		rankApi.POST("commit/info", rank.CommitInfoHandler)
