@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/coderc/go-blog/server/pkg/config"
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -13,7 +14,7 @@ var (
 	B *zap.Logger
 )
 
-func init() {
+func Init() {
 	B = getLogger("base")
 }
 
@@ -26,7 +27,7 @@ func getLogger(name string) *zap.Logger {
 		fileEncoder zapcore.Encoder
 	)
 
-	infoLogFileName = fmt.Sprintf("/tmp/log/%s_info.log", name)
+	infoLogFileName = fmt.Sprintf("%s/%s_info.log", config.GetConfig().Server.LogDir, name)
 	infoLogFile = &lumberjack.Logger{
 		Filename:   infoLogFileName,
 		MaxSize:    500, // megabytes

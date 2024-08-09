@@ -1,0 +1,21 @@
+server:
+  env: local
+  port: 8082
+  debug: true
+  log_level: debug
+  log_dir: ./log
+jwt:
+  secret: secret
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  user: root
+  password: 123mysql
+  db_name: test
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password: ""
+  db: 1
+  ping_timeout: 100ms
+  prefix_housekeeping: "housekeeping"

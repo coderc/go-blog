@@ -17,6 +17,11 @@ FROM scratch
 WORKDIR /app
 
 COPY --from=builder /app/server .
+COPY --from=builder /app/config/prod/config.yaml .
+
+ENV GIN_MODE=release
+ENV CONFIG=.
+
 EXPOSE 8082
 
 CMD ["./server"]

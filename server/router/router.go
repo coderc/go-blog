@@ -6,6 +6,7 @@ import (
 	"github.com/coderc/go-blog/server/common/middleware"
 	"github.com/coderc/go-blog/server/common/prome"
 	"github.com/coderc/go-blog/server/pkg/logger"
+	"github.com/coderc/go-blog/server/router/house_keeping"
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"
@@ -26,6 +27,8 @@ func Init(r *gin.Engine) {
 			"message": "pong",
 		})
 	})
+
+	house_keeping.InitHouseKeepingRouter(v1)
 
 	v1.Any("/mock_alert", func(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{
