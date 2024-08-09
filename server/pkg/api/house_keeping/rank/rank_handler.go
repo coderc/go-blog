@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/coderc/go-blog/server/common/ret"
 	"github.com/coderc/go-blog/server/pkg/house_keeping/rank"
 	"github.com/gin-gonic/gin"
 )
@@ -21,23 +22,25 @@ func RankListHandler(c *gin.Context) {
 	)
 
 	if err = c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"code": 500,
-			"msg":  err.Error(),
+		ret.Response(c, http.StatusBadRequest, &ret.Res{
+			Code:       http.StatusBadRequest,
+			Message:    "invalid request",
+			ErrMessage: err.Error(),
 		})
 		return
 	}
 
 	if rankItemSli, err := rank.GetRankList(context.TODO(), req.Start, req.End); err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"code": 500,
-			"msg":  err.Error(),
+		ret.Response(c, http.StatusInternalServerError, &ret.Res{
+			Code:       http.StatusInternalServerError,
+			Message:    "get rank list failed",
+			ErrMessage: err.Error(),
 		})
 	} else {
-		c.JSON(http.StatusOK, gin.H{
-			"code": 200,
-			"msg":  "success",
-			"data": rankItemSli,
+		ret.Response(c, http.StatusOK, &ret.Res{
+			Code:    http.StatusOK,
+			Message: "success",
+			Data:    rankItemSli,
 		})
 	}
 }
