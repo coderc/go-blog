@@ -13,7 +13,7 @@ mysql:
   password: 123mysql
   db_name: test
 redis:
-  host: host.docker.internal
+  host: redis
   port: 6379
   password: ""
   db: 1
