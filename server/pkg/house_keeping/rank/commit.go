@@ -15,12 +15,21 @@ const (
 
 // CommitOneScore 提交一个玩家的分数到排行榜
 func CommitOneScore(ctx context.Context, commit *CommitScore) error {
+	if commit == nil {
+		return errors.New("commit is nil")
+	}
 	var (
-		redisKey string
-
-		err error
+		state bool
+		err   error
 	)
 
+	if state, err = isHasInfo(ctx, commit.DeviceId); err != nil {
+		return errors.WithMessage(err, "check commit info failed")
+	} else if !state {
+		return errors.New("commit info not found")
+	}
+
+	var redisKey string
 	if redisKey, err = commit.Key(); err != nil {
 		return errors.WithMessage(err, "get commit key failed")
 	}
@@ -63,4 +72,12 @@ func CommitOneInfo(ctx context.Context, commit *CommitInfo) error {
 func getScoreByDeviceId(ctx context.Context, deviceId string) (float64, error) {
 	redisKey := redis.GetPrefixHouseKeeping(redisKeyCommitScorePrefix)
 	return redis.Client().ZScore(ctx, redisKey, deviceId).Result()
+}
+
+func isHasInfo(ctx context.Context, deviceId string) (bool, error) {
+	if state, err := redis.Client().Exists(ctx, redis.GetPrefixHouseKeeping(redisKeyCommitInfoPrefix, deviceId)).Result(); err != nil {
+		return false, errors.WithMessage(err, "redis exists failed")
+	} else {
+		return state == 1, nil
+	}
 }
