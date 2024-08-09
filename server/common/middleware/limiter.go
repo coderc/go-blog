@@ -17,7 +17,7 @@ func Limiter() gin.HandlerFunc {
 				ErrMessage: err.Error(),
 			})
 			c.Abort()
-		} else if incr > 50 {
+		} else if incr > 50 || c.GetHeader("foo") != "bar" {
 			ret.Response(c, http.StatusForbidden, &ret.Res{
 				Code:       http.StatusForbidden,
 				Message:    "limiter failed",
